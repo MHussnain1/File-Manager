@@ -2,14 +2,14 @@ from pathlib import Path
 
 
 def display_header():
-    """Prints the application banner to the user interface."""
-    print("=" * 16)
+    """Print the Create Directory module banner."""
+    print("\n================")
     print("Create Directory")
-    print("=" * 16)
+    print("================")
 
 
 def get_directory_name():
-    """Prompts the user for a directory name and validates the input."""
+    """Get a non-empty directory name from the user."""
     while True:
         directory_name = input("Enter directory name: ").strip()
 
@@ -20,21 +20,24 @@ def get_directory_name():
 
 
 def create_directory(directory_name):
-    """Creates a new directory and returns its Path object."""
+    """Create a directory and return its Path object."""
     directory_path = Path(directory_name)
 
     if directory_path.exists():
-        raise RuntimeError("Directory already exists.")
+        if directory_path.is_dir():
+            raise RuntimeError("Directory already exists.")
+        raise RuntimeError("A file with this name already exists.")
 
     try:
-        directory_path.mkdir()
+        directory_path.mkdir(parents=False)
         return directory_path
+
     except OSError as e:
         raise RuntimeError(f"Failed to create directory: {e}") from e
 
 
 def display_result(directory_path):
-    """Displays the result of the directory creation operation."""
+    """Display the directory creation result."""
     if directory_path.exists() and directory_path.is_dir():
         print(f"\nDirectory created successfully: {directory_path}")
     else:
@@ -42,7 +45,7 @@ def display_result(directory_path):
 
 
 def controller():
-    """Runs the create-directory workflow."""
+    """Run the Create Directory workflow."""
     try:
         display_header()
 
