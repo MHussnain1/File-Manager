@@ -2,6 +2,9 @@ import sys
 
 try:
     from module.list_directory import controller as list_controller
+    from module.Create_file import controller as creation_controller
+    from module.Create_directory import controller as dir_controller
+    from module.Delete_File import controller as delete_controller
 except ImportError as e:
     print("\n==============================")
     print(" Initialization Error")
@@ -20,6 +23,9 @@ def get_menu_dispatch():
     """Return a mapping between menu choices and module controllers."""
     return {
         "1": list_controller,
+        "2": creation_controller,
+        "3": dir_controller,
+        "4": delete_controller
     }
 
 
@@ -28,6 +34,9 @@ def display_menu():
     print(" Network Toolkit - File Manager")
     print("==============================")
     print("1: List Directory")
+    print("2: Create_file")
+    print("3: Create_Directory")
+    print("4: Delete File")
     print("0: Exit")
 
 
