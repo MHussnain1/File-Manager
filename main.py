@@ -31,7 +31,7 @@ def get_menu_dispatch():
 
 def display_menu():
     print("\n==============================")
-    print(" Network Toolkit - File Manager")
+    print("File Manager")
     print("==============================")
     print("1: List Directory")
     print("2: Create_file")
