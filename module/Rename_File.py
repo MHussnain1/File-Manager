@@ -37,10 +37,15 @@ def get_new_filename():
     while True:
         new_filename = input("Enter new filename: ").strip()
 
-        if new_filename:
-            return new_filename
+        if not new_filename:
+            print("Error: New filename cannot be empty. Please try again.")
+            continue
 
-        print("Error: New filename cannot be empty. Please try again.")
+        if Path(new_filename).name != new_filename or new_filename in (".", ".."):
+            print("Error: Enter a filename only; do not include a path.")
+            continue
+
+        return new_filename
 
 def rename_file(file_path, new_filename):
     """Rename the file to the new filename."""
@@ -56,12 +61,20 @@ def rename_file(file_path, new_filename):
     except OSError as e:
         raise RuntimeError(f"Failed to rename file: {e}") from e
 
-def display_result(new_file_path):
-    """Display the result of the rename operation."""
-    if new_file_path.exists() and new_file_path.is_file():
-        print(f"\nFile renamed successfully to: {new_file_path}")
-    else:
-        print("\nFile was not renamed.")
+def user_confirmation(file_path, new_filename):
+    """Ask the user for confirmation before renaming the file."""
+    while True:
+        choice = input(
+            f"Are you sure you want to rename '{file_path.name}' "
+            f"to '{new_filename}'? (y/n): "
+        ).strip().lower()
+
+        if choice in ("y", "yes"):
+            return True
+        if choice in ("n", "no"):
+            return False
+
+        print("Invalid response. Please enter 'y' or 'n'.")
 
 def display_result(new_file_path):
     """Display the result of the rename operation."""
@@ -77,9 +90,12 @@ def controller():
 
         file_path = get_file_path()
         new_filename = get_new_filename()
-        new_file_path = rename_file(file_path, new_filename)
 
-        display_result(new_file_path)
+        if user_confirmation(file_path, new_filename):
+            new_file_path = rename_file(file_path, new_filename)
+            display_result(new_file_path)
+        else:
+            print("\nOperation cancelled. File was not renamed.")
 
     except RuntimeError as e:
         print(f"\nError: {e}")
