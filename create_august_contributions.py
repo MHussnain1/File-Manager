@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create dated empty Git commits for August 25, 26, 27, and 28.
+"""Create dated empty Git commits for September 1, 2, 3, and 4.
 
 Run this script from inside an existing Git repository. It creates commits only;
 push the branch afterwards if you want the commits to appear on a hosting site.
@@ -12,7 +12,7 @@ import sys
 from datetime import datetime
 
 
-DAYS = (25, 26, 27, 28)
+DAYS = (1, 2, 3, 4)
 
 
 def run_git(arguments, env=None):
@@ -21,7 +21,7 @@ def run_git(arguments, env=None):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Create one empty commit on each of August 25–28."
+        description="Create one empty commit on each of September 1–4."
     )
     parser.add_argument(
         "--year",
@@ -41,8 +41,8 @@ def main():
 
     for day in DAYS:
         # ISO 8601 with a fixed time keeps author and committer dates identical.
-        commit_date = f"{args.year}-08-{day:02d}T12:00:00"
-        message = f"chore: contribution for August {day}, {args.year}"
+        commit_date = f"{args.year}-09-{day:02d}T12:00:00"
+        message = f"chore: contribution for September {day}, {args.year}"
 
         if args.dry_run:
             print(f"Would create: {commit_date} — {message}")
@@ -53,7 +53,7 @@ def main():
         environment["GIT_COMMITTER_DATE"] = commit_date
         result = run_git(["commit", "--allow-empty", "-m", message], env=environment)
         if result.returncode != 0:
-            sys.exit(f"Error: stopped before August {day}.")
+            sys.exit(f"Error: stopped before September {day}.")
         print(f"Created commit dated {commit_date}")
 
     if not args.dry_run:
