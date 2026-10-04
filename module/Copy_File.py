@@ -1,4 +1,5 @@
 from pathlib import Path
+import shutil
 
 
 def display_header():
@@ -75,3 +76,12 @@ def user_confirmation(destination_path):
             return False
 
         print("Invalid response. Please enter 'y' or 'n'.")
+
+
+def copy_file(source_file, destination_path):
+    """Copy a file and return its destination path."""
+    try:
+        shutil.copy2(source_file, destination_path)
+        return destination_path
+    except OSError as e:
+        raise RuntimeError(f"Failed to copy file: {e}") from e
