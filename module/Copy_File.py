@@ -65,10 +65,14 @@ def destination_exists(destination_path):
 def user_confirmation(destination_path):
     """Ask whether to replace an existing destination file."""
     while True:
-        choice = input(
-            f"File '{destination_path.name}' already exists at the destination.\n"
-            "Do you want to replace it? (y/n): "
-        ).strip().lower()
+        choice = (
+            input(
+                f"File '{destination_path.name}' already exists at the destination.\n"
+                "Do you want to replace it? (y/n): "
+            )
+            .strip()
+            .lower()
+        )
 
         if choice in ("y", "yes"):
             return True
