@@ -69,9 +69,7 @@ def user_confirmation(destination_path):
             input(
                 f"File '{destination_path.name}' already exists at the destination.\n"
                 "Do you want to replace it? (y/n): "
-            )
-            .strip()
-            .lower()
+            ).strip().lower()
         )
 
         if choice in ("y", "yes"):
@@ -89,3 +87,11 @@ def copy_file(source_file, destination_path):
         return destination_path
     except OSError as e:
         raise RuntimeError(f"Failed to copy file: {e}") from e
+
+
+def display_result(destination_path):
+    """Verify the copied file and display the result."""
+    if destination_path.exists() and destination_path.is_file():
+        print(f"File copied successfully to: {destination_path}")
+    else:
+        print("File was not copied.")
