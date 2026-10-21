@@ -95,3 +95,37 @@ def display_result(destination_path):
         print(f"File copied successfully to: {destination_path}")
     else:
         print("File was not copied.")
+
+
+def controller():
+    """Run the Copy File workflow."""
+    try:
+        display_header()
+
+        source_file = get_source_file()
+        destination_directory = get_destination_directory()
+        destination_path = get_destination_path(
+            source_file, destination_directory
+        )
+
+        if destination_path.exists() and source_file.samefile(destination_path):
+            print("\nSource and destination are the same file. No copy was made.")
+            return
+
+        if destination_exists(destination_path):
+            if not destination_path.is_file():
+                print("\nError: A directory exists at the destination path.")
+                return
+
+            if not user_confirmation(destination_path):
+                print("\nOperation cancelled. File was not copied.")
+                return
+
+        copied_path = copy_file(source_file, destination_path)
+        display_result(copied_path)
+
+    except RuntimeError as e:
+        print(f"\nError: {e}")
+
+    except KeyboardInterrupt:
+        print("\nOperation cancelled by user.")

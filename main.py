@@ -6,6 +6,7 @@ try:
     from module.Create_directory import controller as dir_controller
     from module.Delete_File import controller as delete_controller
     from module.Rename_File import controller as rename_controller
+    from module.Copy_File import controller as copy_controller
 except ImportError as e:
     print("\n==============================")
     print(" Initialization Error")
@@ -28,6 +29,7 @@ def get_menu_dispatch():
         "3": dir_controller,
         "4": delete_controller,
         "5": rename_controller,
+        "6": copy_controller,   
     }
 
 
@@ -40,6 +42,7 @@ def display_menu():
     print("3: Create_Directory")
     print("4: Delete File")
     print("5: Rename File")
+    print("6: Copy File")
     print("0: Exit")
 
 
