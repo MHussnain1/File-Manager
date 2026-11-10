@@ -4,8 +4,8 @@ import subprocess
 from datetime import datetime, timedelta
 
 # Configuration
-start_date = datetime(2026, 9, 6)
-end_date = datetime(2026, 10, 20) # Current date
+start_date = datetime(2026, 10, 26)
+end_date = datetime(2026, 11, 10) # Current date
 file_name = "contributions.txt"
 
 # "Less or more" settings: Min and max commits per day
